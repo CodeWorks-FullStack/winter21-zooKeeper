@@ -62,14 +62,6 @@ function drawAllAnimals() {
   document.getElementById('animals').innerHTML = template
 }
 
-function feed(animalKey) {
-  const animal = animals[animalKey]
-  if (animal.health < 100 && animal.health > 0) {
-    animal.health += Math.floor(Math.random() * 10)
-  }
-  drawAnimalHealth(animalKey)
-}
-
 function drawAnimalHealth(animalKey) {
   document.getElementById(`${animalKey}-health`).style = `width: ${animals[animalKey].health}%`
   if (animals[animalKey].health <= 0) {
@@ -86,8 +78,18 @@ function drawMoney() {
   document.getElementById('money').innerText = money
 }
 
+// NOTE 'animalKey' is being passed from the button click in the html template above as an argument - that data is originating from the key in our for-in loop
+function feed(animalKey) {
+  const animal = animals[animalKey]
+  if (animal.health < 100 && animal.health > 0) {
+    animal.health += Math.floor(Math.random() * 10)
+  }
+  drawAnimalHealth(animalKey)
+}
+
+
 function decreaseHealth() {
-  // remember that the 'key' is how we are accessing each individual object
+  // remember that the 'key' is how we are accessing each individual object IN the animals collection
   for (const key in animals) {
     if (animals[key].health >= 0) {
       animals[key].health -= Math.floor(Math.random() * 10)
